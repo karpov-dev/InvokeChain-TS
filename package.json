@@ -1,0 +1,16 @@
+{
+  "name": "invoke-chain",
+  "version": "1.0.0",
+  "description": "Invoke functions as chain",
+  "private": false,
+  "main": "src/main.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Uladzimir Karpau",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}
