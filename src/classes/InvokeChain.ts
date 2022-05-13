@@ -40,13 +40,13 @@ export class InvokeChain {
       this._resetNextAndStop();
 
       try {
-        previousFunctionResult = await chainItem.invoke(() => this._next, () => this._stop, previousFunctionResult);
+        previousFunctionResult = await chainItem.invoke(() => this._next(), () => this._stop(), previousFunctionResult);
       } catch (e) {
         console.error(e)
       }
 
       if (this._isNext) continue;
-      if (this._isStop) break;
+      if (this._isStop || !this._isNext) break;
     }
 
     return previousFunctionResult;
