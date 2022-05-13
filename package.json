@@ -4,6 +4,10 @@
   "description": "Invoke functions as chain",
   "private": false,
   "main": "src/main.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karpov-dev/InvokeChain-JS"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "prepublishOnly": "npm run build"
