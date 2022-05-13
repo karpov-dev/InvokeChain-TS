@@ -54,6 +54,8 @@ chain.addAll([
       next(); // invoke next. It means that will invoked next function. It not stopped current function
     }),
 ]);
+
+chain.invoke();
 ```
 
 If you not invoked next() - next function in chain will not invoked!
