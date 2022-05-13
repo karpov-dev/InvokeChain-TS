@@ -8,7 +8,7 @@ export class InvokeChainItem {
 
   _params: any = null;
 
-  constructor(functionToChain: Function, params: any) {
+  constructor(functionToChain: Function, params: any = null) {
     this._id = nanoid();
     this._function = functionToChain;
     this._params = params;
