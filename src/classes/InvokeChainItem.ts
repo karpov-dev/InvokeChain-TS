@@ -1,5 +1,5 @@
 import {nanoid} from "nanoid";
-import {IInvokeChainContext} from "../types/IInvokeChainContext";
+import {IInvokeChainContext} from "../types";
 
 export class InvokeChainItem {
 
@@ -21,7 +21,7 @@ export class InvokeChainItem {
 
   get getParams() { return this._params; }
 
-  invoke(next: Function, stop: Function, previousFunctionResult: any): any {
-    return this.getFunction?.({next, stop, params: this.getParams, previousFunctionResult} as IInvokeChainContext);
+  async invoke(next: Function, stop: Function, previousFunctionResult: any): Promise<any> {
+    return await this.getFunction?.({next, stop, params: this.getParams, previousFunctionResult} as IInvokeChainContext);
   }
 }
