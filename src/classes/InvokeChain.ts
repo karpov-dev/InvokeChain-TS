@@ -39,7 +39,11 @@ export class InvokeChain {
     for (let chainItem of this.getChain) {
       this._resetNextAndStop();
 
-      previousFunctionResult = await chainItem.invoke(this._next, this._stop, previousFunctionResult);
+      try {
+        previousFunctionResult = await chainItem.invoke(() => this._next, () => this._stop, previousFunctionResult);
+      } catch (e) {
+        console.error(e)
+      }
 
       if (this._isNext) continue;
       if (this._isStop) break;

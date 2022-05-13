@@ -1,6 +1,6 @@
 {
   "name": "invoke-chain",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Invoke functions as chain",
   "private": false,
   "main": "src/main.ts",
