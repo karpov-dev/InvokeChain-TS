@@ -38,27 +38,82 @@ Than need add functions in InvokeChainItem wrapper
 const chain = new InvokeChain();
 
 chain.addAll([
-    new InvokeChainItem(({next, stop, params}: {next: Function, stop: Function, params: any}) => {
+    new InvokeChainItem((context: IInvokeChainContext) => {
       //code
-      next(); // invoke next. It means that will invoked next function. It not stopped current function
+      context.next(); // invoke next. It means that will invoked next function. It not stopped current function
     }),
     
-    new InvokeChainItem(({next, stop, params, previousResult}: {next: Function, stop: Function, params: any, previousResult: any}) => {
+    new InvokeChainItem((context: IInvokeChainContext) => {
       //code
-      stop(); // stop chain. It means that will invoked next function. It not stopped current function
+      context.stop(); // stop chain. It means that will invoked next function. It not stopped current function
     }),
     
     //will not invoked because previos function invoked stop() or not invoked next()
-    new InvokeChainItem(({next, stop, params}: {next: Function}) => {
+    new InvokeChainItem((context: IInvokeChainContext) => {
       //code
-      next(); // invoke next. It means that will invoked next function. It not stopped current function
+      context.next(); // invoke next. It means that will invoked next function. It not stopped current function
     }),
 ]);
-
-chain.invoke();
 ```
 
 If you not invoked next() - next function in chain will not invoked!
+
+## Documentation
+
+#### Class InvokeChain
+
+##### Contructor
+---
+```ts
+new InvokeChain(Array<InvokeChainItem> = []) // Constructor with default []
+```
+
+##### Getters
+--- 
+```ts
+public InvokeChain.getChain: Array<InvokeChainItem> // Return chain
+```
+
+##### Methods
+---
+```ts
+public InvokeChain.add(InvokeChainItem): InvokeChain  // Add elemnt to chain
+public InvokeChain.addAll(Array<InvokeChainItem>): InvokeChain // Add array of elements to chain
+public InvokeChain.remove(string): InvokeChain // Remove chain item by InvokeChainItem.Id
+public async InvokeChain.invoke(): Promise<any> // Invoke chain. Return last function invoke result. Async
+```
+
+#### Class InvokeChainItem
+
+##### Contructor
+---
+```ts
+new InvokeChainItem(Function, any = null) // Function - function which will be invoked. any - params for function
+```
+
+##### Getters
+---
+```ts
+public InvokeChainItem.getId: string // Return ChainItem Id. Need to remove from ChainItem
+public InvokeChainItem.getFunction // Return function which will be invoked
+public InvokeChainItem.getParams // Return params for function
+```
+
+##### Methods
+--- 
+```ts
+public async InvokeChain.invoke(Function, Function, any): Promise<any> // Invoke chain Item. First Function - next(), second function - stop(), any - previos function invoke result
+```
+
+#### Interface IInvokeChainContext
+```ts
+interface IInvokeChainContext {
+  next: Function,                // Next Function
+  stop: Function,                // Stop function
+  params: any,                   // Params for function
+  previousFunctionResult: any    // Previos function result
+}
+```
 
 ## License
 ISC
